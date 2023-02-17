@@ -8,7 +8,13 @@ const studentSchema = new Schema(
       required: [true, "Student name is required"],
       minLength: [3, "Student name must be at least 3 characters long"],
       trim: true,
-      // TODO: Add custom validator to ensure only letters and one space in between words
+      validate: {
+        validator(name) {
+          return /^[a-zA-Z]+(\s[a-zA-Z]+)?$/.test(name);
+        },
+        message:
+          "Student name must only contain letters and one space in between words.",
+      },
     },
 
     // An array of subdocuments.
