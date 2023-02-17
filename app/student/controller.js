@@ -4,8 +4,12 @@ const controller = {
   index() {
     return Student.find();
   },
-  show(id) {
+  showStudent(id) {
     return Student.findById(id);
+  },
+  async showStudentAverageGrade(id) {
+    const student = await Student.findById(id);
+    return student.averageGrade;
   },
   create(newStudent) {
     return Student.create(newStudent);
