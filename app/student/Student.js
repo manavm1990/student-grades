@@ -19,13 +19,27 @@ const studentSchema = new Schema(
 
     // An array of subdocuments.
     grades: [gradeSchema],
-    // TODO: Add a virtual property to calculate the student's average grade
   },
   {
     strict: "throw",
     versionKey: false,
   }
 );
+
+// It's a computed 💻 property that is not stored in the database.
+studentSchema.virtual("averageGrade").get(function () {
+  const totalEarned = this.grades.reduce((acc, grade) => {
+    return acc + grade.earned;
+  }, 0);
+
+  const totalPossible = this.grades.reduce((acc, grade) => {
+    return acc + grade.possible;
+  }, 0);
+
+  if (!totalPossible) return 0;
+
+  return ((totalEarned / totalPossible) * 100).toFixed(1);
+});
 
 // TODO: Prevent duplicate grade names (use a custom 🪝)
 
