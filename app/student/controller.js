@@ -13,6 +13,9 @@ const controller = {
   updateName(id, newName) {
     return Student.findByIdAndUpdate(id, { name: newName });
   },
+  updateStudentWithNewGrade(id, newGrade) {
+    return Student.findByIdAndUpdate(id, { $push: { grades: newGrade } });
+  },
 };
 
 export default controller;
