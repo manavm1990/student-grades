@@ -20,7 +20,9 @@ const gradeSchema = new Schema({
   possible: {
     type: Number,
     required: [true, "Possible points are required"],
-    // TODO: Add custom validator to ensure possible points are greater than earned points
+    validator(possible) {
+      return possible >= this.earned;
+    },
   },
 });
 
