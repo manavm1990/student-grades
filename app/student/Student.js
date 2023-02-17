@@ -20,3 +20,7 @@ const studentSchema = new Schema(
     versionKey: false,
   }
 );
+
+// TODO: Prevent duplicate grade names (use a custom 🪝)
+
+export default model("Student", studentSchema);
