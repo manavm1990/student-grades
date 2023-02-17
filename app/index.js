@@ -1,3 +1,5 @@
-import initClient from "./client.js";
+import initDBClient from "./client.js";
+import initServer from "./server.js";
 
-initClient();
+initDBClient();
+initServer();
