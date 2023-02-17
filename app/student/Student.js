@@ -42,7 +42,7 @@ studentSchema.virtual("averageGrade").get(function () {
 });
 
 studentSchema.path("grades").validate(function (grades) {
-  // Use OPTIONAL CHAINGING to prevent an error if grade.name is undefined
+  // Use OPTIONAL CHAINING to prevent an error if grade.name is undefined
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
   const lowerCasedGradeNames = grades.map((grade) => grade.name?.toLowerCase());
 
