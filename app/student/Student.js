@@ -41,6 +41,13 @@ studentSchema.virtual("averageGrade").get(function () {
   return ((totalEarned / totalPossible) * 100).toFixed(1);
 });
 
-// TODO: Prevent duplicate grade names (use a custom 🪝)
+studentSchema.path("grades").validate(function (grades) {
+  // Use OPTIONAL CHAINGING to prevent an error if grade.name is undefined
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+  const lowerCasedGradeNames = grades.map((grade) => grade.name?.toLowerCase());
+
+  // If the number of unique grade names is less than the number of grades, then there are duplicates
+  return new Set(lowerCasedGradeNames).size === lowerCasedGradeNames.length;
+}, "Duplicate grade name");
 
 export default model("Student", studentSchema);
