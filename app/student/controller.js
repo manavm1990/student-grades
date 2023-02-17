@@ -16,6 +16,9 @@ const controller = {
   updateStudentWithNewGrade(id, newGrade) {
     return Student.findByIdAndUpdate(id, { $push: { grades: newGrade } });
   },
+  dropStudent(id) {
+    return Student.findByIdAndDelete(id);
+  },
 };
 
 export default controller;
