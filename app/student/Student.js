@@ -7,12 +7,16 @@ const studentSchema = new Schema(
       type: String,
       required: [true, "First name is required"],
       maxLength: [39, "First name must be less than 40 characters long"],
-        },
+    },
     last: {
       type: String,
       required: [true, "Last name is required"],
       maxLength: [39, "Last name must be less than 40 characters long"],
-      },
+    },
+    github: {
+      type: String,
+      required: [true, "GitHub username is required"],
+      maxLength: [39, "GitHub username must be less than 40 characters long"],
     },
 
     // An array of subdocuments.
