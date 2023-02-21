@@ -43,6 +43,18 @@ studentSchema.virtual("averageGrade").get(function () {
   return ((totalEarned / totalPossible) * 100).toFixed(1);
 });
 
+// https://wustl.bootcampcontent.com/wustl-bootcamp/WUSTL-VIRT-FSF-PT-10-2022-U-LOLC/-/blob/main/18-Mongo/22-Stu_Virtuals/Solved/models/User.js#L21
+studentSchema
+  .virtual("fullName")
+  .get(function () {
+    return `${this.first} ${this.last}`;
+  })
+  .set(function (fullName) {
+    const [first, last] = fullName.split(" ");
+    this.first = first;
+    this.last = last;
+  });
+
 studentSchema.path("grades").validate(function (grades) {
   // Use OPTIONAL CHAINING to prevent an error if grade.name is undefined
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
