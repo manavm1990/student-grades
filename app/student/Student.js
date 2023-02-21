@@ -1,5 +1,8 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import gradeSchema from "./grade-schema.js";
+
+// TODO: Refactor ♻️ to use 'validateAgainstDupes'.
+// DRY up 'github' and 'fullName' properties.
 
 const studentSchema = new Schema(
   {
@@ -17,10 +20,36 @@ const studentSchema = new Schema(
       type: String,
       required: [true, "GitHub username is required"],
       maxLength: [39, "GitHub username must be less than 40 characters long"],
+      async validate(github) {
+        const duplicate = await mongoose.models.Student.findOne({ github });
+
+        // Inverse the boolean value of duplicate
+        return !duplicate;
+      },
     },
 
     // An array of subdocuments.
     grades: [gradeSchema],
+    fullName: {
+      type: String,
+      get() {
+        return `${this.first} ${this.last}`;
+      },
+      set(fullName) {
+        const [first, last] = fullName.split(" ");
+
+        this.first = first;
+        this.last = last;
+      },
+      async validate(fullName) {
+        const duplicate = await mongoose.models.Student.findOne({
+          fullName,
+        });
+
+        // Inverse the boolean value of duplicate
+        return !duplicate;
+      },
+    },
   },
   {
     strict: "throw",
@@ -43,18 +72,6 @@ studentSchema.virtual("averageGrade").get(function () {
 
   return ((totalEarned / totalPossible) * 100).toFixed(1);
 });
-
-// https://wustl.bootcampcontent.com/wustl-bootcamp/WUSTL-VIRT-FSF-PT-10-2022-U-LOLC/-/blob/main/18-Mongo/22-Stu_Virtuals/Solved/models/User.js#L21
-studentSchema
-  .virtual("fullName")
-  .get(function () {
-    return `${this.first} ${this.last}`;
-  })
-  .set(function (fullName) {
-    const [first, last] = fullName.split(" ");
-    this.first = first;
-    this.last = last;
-  });
 
 studentSchema.path("grades").validate(function (grades) {
   // Use OPTIONAL CHAINING to prevent an error if grade.name is undefined
