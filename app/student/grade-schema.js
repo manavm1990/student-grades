@@ -24,6 +24,10 @@ const gradeSchema = new Schema({
       return possible >= this.earned;
     },
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export default gradeSchema;
