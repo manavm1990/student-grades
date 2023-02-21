@@ -4,20 +4,25 @@ const controller = {
   index() {
     return Student.find();
   },
-  showStudent(id) {
-    return Student.findById(id);
+  showStudent(studentId) {
+    return Student.findById(studentId);
   },
   create(newStudent) {
     return Student.create(newStudent);
   },
-  updateName(id, newName) {
-    return Student.findByIdAndUpdate(id, { name: newName });
+  updateGradeName(studentId, gradeId, newGradeName) {
+    // TODO: Implement this method.
   },
-  updateStudentWithNewGrade(id, newGrade) {
-    return Student.findByIdAndUpdate(id, { $push: { grades: newGrade } });
+  updateStudentName(studentId, newName4Student) {
+    return Student.findByIdAndUpdate(studentId, { name: newName4Student });
   },
-  dropStudent(id) {
-    return Student.findByIdAndDelete(id);
+  updateStudentWithNewGrade(studentId, newGrade) {
+    return Student.findByIdAndUpdate(studentId, {
+      $push: { grades: newGrade },
+    });
+  },
+  updateStudentGrade(id, gradeId, newEarnedGrade) {
+    // TODO: Implement this method.
   },
 };
 

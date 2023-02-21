@@ -1,8 +1,7 @@
+// TODO: Add all the comments 💡.
+
 import mongoose, { Schema, model } from "mongoose";
 import gradeSchema from "./grade-schema.js";
-
-// TODO: Refactor ♻️ to use 'validateAgainstDupes'.
-// DRY up 'github' and 'fullName' properties.
 
 const studentSchema = new Schema(
   {
