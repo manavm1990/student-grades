@@ -10,7 +10,7 @@ const controller = {
   create(newStudent) {
     return Student.create(newStudent);
   },
-  updateGradeName(studentId, gradeId, newGradeName) {
+  updateGradeName4AllStudents(gradeId, newGradeName) {
     // TODO: Implement this method.
   },
   updateStudentName(studentId, newName4Student) {
