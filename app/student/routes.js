@@ -13,4 +13,24 @@ router.get("/", (_, res) => {
     });
 });
 
+// GET /api/students/:id
+router.get("/:id", (req, res) => {
+  studentController
+    .showStudent(req.params.id)
+    .then((student) => res.json(student))
+    .catch((err) => {
+      res.json({ error: err.message });
+    });
+});
+
+// POST /api/students
+router.post("/", (req, res) => {
+  studentController
+    .create(req.body)
+    .then((student) => res.json(student))
+    .catch((err) => {
+      res.json({ error: err.message });
+    });
+});
+
 export default router;
