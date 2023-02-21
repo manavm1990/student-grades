@@ -22,11 +22,11 @@ const studentSchema = new Schema(
       maxLength: [39, "GitHub username must be less than 40 characters long"],
       validate: {
         async validator(github) {
-        const duplicate = await mongoose.models.Student.findOne({ github });
+          const duplicate = await mongoose.models.Student.findOne({ github });
 
-        // Inverse the boolean value of duplicate
-        return !duplicate;
-      },
+          // Inverse the boolean value of duplicate
+          return !duplicate;
+        },
         message: "Duplicate GitHub username",
       },
     },
@@ -46,12 +46,12 @@ const studentSchema = new Schema(
       },
       validate: {
         async validator(fullName) {
-        const duplicate = await mongoose.models.Student.findOne({
-          fullName,
-        });
+          const duplicate = await mongoose.models.Student.findOne({
+            fullName,
+          });
 
-        // Inverse the boolean value of duplicate
-        return !duplicate;
+          // Inverse the boolean value of duplicate
+          return !duplicate;
         },
         message: "Duplicate full name",
       },
@@ -59,7 +59,7 @@ const studentSchema = new Schema(
   },
   {
     strict: "throw",
-    toJSON: { virtuals: true },
+    toJSON: { getters: true, virtuals: true },
     versionKey: false,
   }
 );
