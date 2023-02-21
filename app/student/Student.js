@@ -24,6 +24,7 @@ const studentSchema = new Schema(
   },
   {
     strict: "throw",
+    toJSON: { virtuals: true },
     versionKey: false,
   }
 );
