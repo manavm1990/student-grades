@@ -3,17 +3,15 @@ import gradeSchema from "./grade-schema.js";
 
 const studentSchema = new Schema(
   {
-    name: {
+    first: {
       type: String,
-      required: [true, "Student name is required"],
-      minLength: [3, "Student name must be at least 3 characters long"],
-      trim: true,
-      validate: {
-        validator(name) {
-          return /^[a-zA-Z]+(\s[a-zA-Z]+)?$/.test(name);
+      required: [true, "First name is required"],
+      maxLength: [39, "First name must be less than 40 characters long"],
         },
-        message:
-          "Student name must only contain letters and one space in between words.",
+    last: {
+      type: String,
+      required: [true, "Last name is required"],
+      maxLength: [39, "Last name must be less than 40 characters long"],
       },
     },
 
