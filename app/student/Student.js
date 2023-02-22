@@ -32,29 +32,6 @@ const studentSchema = new Schema(
 
     // An array of subdocuments.
     grades: [gradeSchema],
-    fullName: {
-      type: String,
-      get() {
-        return `${this.first} ${this.last}`;
-      },
-      set(fullName) {
-        const [first, last] = fullName.split(" ");
-
-        this.first = first;
-        this.last = last;
-      },
-      validate: {
-        async validator(fullName) {
-          const duplicate = await mongoose.models.Student.findOne({
-            fullName,
-          });
-
-          // Inverse the boolean value of duplicate
-          return !duplicate;
-        },
-        message: "Duplicate full name",
-      },
-    },
   },
   {
     strict: "throw",
@@ -77,6 +54,19 @@ studentSchema.virtual("averageGrade").get(function () {
 
   return ((totalEarned / totalPossible) * 100).toFixed(1);
 });
+
+studentSchema
+  .virtual("fullName")
+  .get(function () {
+    // 'this' is a reference to whatever individual Student document is being processed
+    return `${this.first} ${this.last}`;
+  })
+  .set(function (fullName) {
+    const [first, last] = fullName.split(" ");
+
+    this.first = first;
+    this.last = last;
+  });
 
 studentSchema.path("grades").validate(function (grades) {
   // Use OPTIONAL CHAINING to prevent an error if grade.name is undefined
