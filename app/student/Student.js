@@ -35,7 +35,9 @@ const studentSchema = new Schema(
   },
   {
     strict: "throw",
-    toJSON: { getters: true, virtuals: true },
+    // Send the virtuals to the client (e.g. res.json)
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
     versionKey: false,
   }
 );
